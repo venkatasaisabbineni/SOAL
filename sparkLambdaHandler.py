@@ -39,7 +39,9 @@ def spark_submit(s3_bucket_script: str,input_script: str, event: dict)-> None:
     # input_path = event.get('INPUT_PATH','')
     # output_path = event.get('OUTPUT_PATH', '')
 
-    logger.info(f'Trigger File Name : {event['Records']}')
+    #logger.info(f'Trigger File Name : {event['Records']}')
+    for key, value in event.items():
+        logger.info(f'Trigger File Name : {event[key]}')
     # for key,value in event.items():
     #     logger.info(f'Key of the event : {key}, Value of the event : {value}')
     # Run the spark-submit command on the local copy of teh script
