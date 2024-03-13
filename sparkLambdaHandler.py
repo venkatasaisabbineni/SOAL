@@ -41,11 +41,18 @@ def spark_submit(s3_bucket_script: str,input_script: str, event: dict)-> None:
 
     #logger.info(f'Trigger File Name : {event['Records']}')
     for key,value in event.items():
-        # a=value[0]
-        # b=a['s3']
-        # c=b['object']
-        # d=c['key']
-        logger.info(f'Key of the event : {key}, Value of the event : {value}')
+        a = value[0]
+        if(a['eventSource']=='aws:sqs'):
+            b = a['body']
+            logger.info(f'Key of the event : {key}, Event Trigger : {b}')
+        elif(a['eventSource']=='aws:s3'):
+            b=a['s3']
+            c=b['object']
+            d=c['key']
+            logger.info(f'Key of the event : {key}, Event Trigger : {d}')
+        else:
+            logger.info(f'Key of the event : {key}, Value of the event : {value}')
+        
     # Run the spark-submit command on the local copy of teh script
     try:
         logger.info(f'Spark-Submitting the Spark script {input_script} from {s3_bucket_script}')
