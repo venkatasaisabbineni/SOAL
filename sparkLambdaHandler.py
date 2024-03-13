@@ -42,7 +42,7 @@ def spark_submit(s3_bucket_script: str,input_script: str, event: dict)-> None:
     #logger.info(f'Trigger File Name : {event['Records']}')
     for key,value in event.items():
         a=value[0]
-        b=a[1]
+        b=a[0]
         #c=b[3]
         #d=c[0]
         logger.info(f'Key of the event : {key}, Value of the event : {b}')
